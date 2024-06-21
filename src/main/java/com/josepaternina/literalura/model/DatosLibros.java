@@ -10,8 +10,7 @@ import java.util.List;
 public record DatosLibros(
         // @JsonAlias(): Solo permite leer datos | @JsonProperty: leer y escribir (para una db)
         @JsonAlias("id") Integer id,
-        @JsonAlias("tile") String titulo,
-        @JsonAlias("subjects") List<String> tema,
+        @JsonAlias("title") String titulo,
         @JsonAlias("authors") List<DatosAutor> autores,
         @JsonAlias("languages") List<String> idiomas,
         @JsonAlias("download_count") Double cantidadDeDescarga
