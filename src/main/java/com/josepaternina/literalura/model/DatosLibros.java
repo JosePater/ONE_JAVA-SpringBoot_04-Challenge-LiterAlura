@@ -11,8 +11,8 @@ public record DatosLibros(
         // @JsonAlias(): Solo permite leer datos | @JsonProperty: leer y escribir (para una db)
         @JsonAlias("id") Integer id,
         @JsonAlias("title") String titulo,
-        @JsonAlias("authors") List<DatosAutor> autores,
+        @JsonAlias("authors") List<DatosAutor> autor,
         @JsonAlias("languages") List<String> idiomas,
-        @JsonAlias("download_count") Double cantidadDeDescarga
+        @JsonAlias("download_count") Integer cantidadDeDescarga
 ) {
 }

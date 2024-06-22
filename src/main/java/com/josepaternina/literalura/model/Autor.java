@@ -1,0 +1,83 @@
+package com.josepaternina.literalura.model;
+
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity // Entidad
+@Table(name = "autor")
+public class Autor {
+    @Id
+    private Integer id;
+    @Column(unique = true)
+    private String nombre;
+    private Integer fecha_nacimiento;
+    private Integer fecha_deceso;
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Libro> libro;
+
+    public Autor() {
+    }
+
+    public Autor(DatosAutor datosAutor) {
+        this.nombre = datosAutor.nombre();
+        this.fecha_nacimiento = datosAutor.fechaNacimiento();
+        this.fecha_deceso = datosAutor.fechaFallecimiento();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder librosStr = new StringBuilder();
+        librosStr.append("Libros: ");
+
+        for (int i = 0; i < libro.size(); i++) {
+            librosStr.append(libro.get(i).getTitulo());
+            if (i < libro.size() - 1) {
+                librosStr.append(", ");
+            }
+        }
+        return String.format("---------- Autor ----------%nNombre:" +
+                " %s%n%s%nFecha de Nacimiento: %s%nFecha de Deceso:" +
+                " %s%n---------------------------%n", nombre, librosStr.toString(), fecha_nacimiento, fecha_deceso);
+    }
+
+    // Getters y Setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(Integer fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public Integer getFecha_deceso() {
+        return fecha_deceso;
+    }
+
+    public void setFecha_deceso(Integer fecha_deceso) {
+        this.fecha_deceso = fecha_deceso;
+    }
+
+    public List<Libro> getLibro() {
+        return libro;
+    }
+
+    public void setLibro(List<Libro> libro) {
+        this.libro = libro;
+    }
+}
