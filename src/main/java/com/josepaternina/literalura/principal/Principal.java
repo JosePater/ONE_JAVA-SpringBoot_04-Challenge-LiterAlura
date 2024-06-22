@@ -27,6 +27,7 @@ public class Principal {
         var opcion = -1;
         while (opcion != 0) {
             var menu = """
+                    \nMENÚ DE OPCIONES:
                     1. Buscar libros por su título
                     2. Mostrar todos los libros registrados
                     3. Mostrar todos los autores registrados
@@ -68,6 +69,19 @@ public class Principal {
                 default:
                     System.out.printf("Opción inválida\n");
             }
+        }
+    }
+
+    // Verificar si hay datos en la base de datos
+    private boolean idDateDB() {
+        try {
+            libros = repositoryLibro.findAll();
+            libros.stream()
+                    .forEach(System.out::println);
+            return true;
+        } catch (NullPointerException e) {
+            System.out.println("\nNo hay registros en la base de datos!");
+            return false;
         }
     }
 
@@ -126,18 +140,21 @@ public class Principal {
     }
 
     private void mostrarLibros() {
+        if (!idDateDB()) return;
         libros = repositoryLibro.findAll();
         libros.stream()
                 .forEach(System.out::println);
     }
 
     private void mostrarAutores() {
+        if (!idDateDB()) return;
         autores = repositoryAutor.findAll();
         autores.stream()
                 .forEach(System.out::println);
     }
 
     private void autoresVivosPorAnio() {
+        if (!idDateDB()) return;
         System.out.println("Ingresa el año vivo de autor(es) que desea buscar: ");
         var anio = teclado.nextInt();
         autores = repositoryAutor.listaAutoresVivosPorAnio(anio);
@@ -154,6 +171,7 @@ public class Principal {
     }
 
     private void buscarLibroPorIdioma() {
+        if (!idDateDB()) return;
         System.out.println("Selecciona el lenguaje/idioma que deseas buscar: ");
 
         var opcion = -1;
@@ -199,6 +217,7 @@ public class Principal {
     }
 
     private void top10LibrosMasDescargados() {
+        if (!idDateDB()) return;
         List<Libro> topLibros = repositoryLibro.top10LibrosMasDescargados();
         topLibros.forEach(System.out::println);
     }
